@@ -1,0 +1,760 @@
+
+!
+! Last configuration change at 13:12:29 UTC Wed Feb 11 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname DISTRI2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$.vgP$wlPdZYxhQwBi8H3WFxnRE1
+!
+username Admin privilege 15 password 7 00301614165A07070D701E1D
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+ip dhcp snooping vlan 3,10,20,30,40,50,60,70,88
+no ip dhcp snooping information option
+no ip dhcp snooping verify mac-address
+no ip domain-lookup
+ip domain-name terra.lab
+ip cef
+login block-for 5 attempts 3 within 10
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 3,10,20,30,40,50,60,70,88 priority 28672
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ ip dhcp snooping trust
+!
+interface Port-channel2
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ ip dhcp snooping trust
+!
+interface Port-channel3
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ ip dhcp snooping trust
+!
+interface Ethernet0/0
+ no shutdown
+ description TO DHCP
+ no switchport
+ ip arp inspection trust
+ ip address 10.0.240.1 255.255.255.0
+ duplex auto
+ ipv6 address FE80::A:1 link-local
+ ipv6 address 2001:DB2:A::1/64
+!
+interface Ethernet0/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet0/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/0
+ no shutdown
+ description TO ROUTER 2
+ no switchport
+ ip address 10.0.255.14 255.255.255.252
+ duplex auto
+ ipv6 address FE80::D:2 link-local
+ ipv6 address 2001:DB1:D::2/64
+ ipv6 ospf 100 area 0
+!
+interface Ethernet1/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet1/2
+ no shutdown
+ ip arp inspection trust
+!
+interface Ethernet1/3
+ no shutdown
+ ip arp inspection trust
+!
+interface Ethernet2/0
+ no shutdown
+ description TO RT 1
+ no switchport
+ ip arp inspection trust
+ ip address 10.0.255.6 255.255.255.252
+ duplex auto
+ ipv6 address FE80::D:2 link-local
+ ipv6 address 2001:DB1:C::2/64
+ ipv6 ospf 100 area 0
+!
+interface Ethernet2/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet2/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet2/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet3/0
+ no shutdown
+ description NAAR_DHCP_SERVER
+ switchport access vlan 71
+ switchport mode access
+ ip arp inspection trust
+ ip dhcp snooping trust
+!
+interface Ethernet3/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet3/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet3/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet4/0
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 2 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet4/1
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 2 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet4/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet4/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet5/0
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 3 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet5/1
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 3 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet5/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet5/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet6/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet6/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet6/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet6/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet7/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet7/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet7/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet7/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet8/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet8/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet8/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet8/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet9/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet9/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet9/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet9/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet10/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet10/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet10/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet10/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet11/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet11/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet11/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet11/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet12/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet12/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet12/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet12/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet13/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet13/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet13/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet13/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet14/0
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet14/1
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet14/2
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet14/3
+ no shutdown
+ description SHUT FOR SECURITY
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+!
+interface Ethernet15/0
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 1 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet15/1
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 1 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet15/2
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 1 mode active
+ ip dhcp snooping trust
+!
+interface Ethernet15/3
+ no shutdown
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 99
+ switchport mode trunk
+ ip arp inspection trust
+ channel-group 1 mode active
+ ip dhcp snooping trust
+!
+interface Vlan3
+ no shutdown
+ description TEST-JOHN
+ ip address 10.3.3.3 255.255.255.0
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 3 ip 10.3.3.1
+ standby 103 ipv6 FE80::33:1
+ ipv6 address FE80::33:3 link-local
+ ipv6 address 2001:3:3::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan10
+ no shutdown
+ description ADMIN
+ ip address 10.0.10.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ ip helper-address 10.0.71.254
+ standby version 2
+ standby 10 ip 10.0.10.1
+ standby 110 ipv6 FE80::10:1
+ ipv6 address FE80::10:3 link-local
+ ipv6 address 2001:DB8:10::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan20
+ no shutdown
+ description SALES
+ ip address 10.0.20.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 20 ip 10.0.20.1
+ standby 20 priority 150
+ standby 20 preempt
+ standby 120 ipv6 FE80::20:1
+ standby 120 priority 150
+ standby 120 preempt
+ ipv6 address FE80::20:3 link-local
+ ipv6 address 2001:DB8:20::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan30
+ no shutdown
+ description HR
+ ip address 10.0.30.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 30 ip 10.0.30.1
+ standby 130 ipv6 FE80::30:1
+ ipv6 address FE80::30:3 link-local
+ ipv6 address 2001:DB8:30::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan40
+ no shutdown
+ description Managers
+ ip address 10.0.40.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 40 ip 10.0.40.1
+ standby 40 priority 150
+ standby 40 preempt
+ standby 140 ipv6 FE80::40:1
+ standby 140 priority 150
+ standby 140 preempt
+ ipv6 address FE80::40:3 link-local
+ ipv6 address 2001:DB8:40::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan50
+ no shutdown
+ description IT
+ ip address 10.0.50.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 50 ip 10.0.50.1
+ standby 150 ipv6 FE80::50:1
+ ipv6 address FE80::50:3 link-local
+ ipv6 address 2001:DB8:50::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan60
+ no shutdown
+ description SHOP
+ ip address 10.0.60.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 60 ip 10.0.60.1
+ standby 60 priority 150
+ standby 60 preempt
+ standby 160 ipv6 FE80::60:1
+ standby 160 priority 150
+ standby 160 preempt
+ ipv6 address FE80::60:3 link-local
+ ipv6 address 2001:DB8:60::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan70
+ no shutdown
+ description MGMT
+ ip address 10.0.70.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 70 ip 10.0.70.1
+ standby 170 ipv6 FE80::70:1
+ ipv6 address FE80::70:3 link-local
+ ipv6 address 2001:DB8:70::3/64
+ ipv6 ospf 100 area 0
+!
+interface Vlan71
+ no shutdown
+ ip address 10.0.71.3 255.255.255.0
+ standby 71 ip 10.0.71.1
+ ip ospf 100 area 0
+ ipv6 address FE80::71:2 link-local
+ ipv6 address 2001:DB8:71::3/64
+!
+interface Vlan88
+ no shutdown
+ description Guests
+ ip address 10.0.88.3 255.255.255.0
+ ip access-group ACL_ADMIN_IN in
+ ip access-group ACL_STAFF_OUT out
+ ip helper-address 10.0.240.2
+ standby version 2
+ standby 88 ip 10.0.88.1
+ standby 88 priority 150
+ standby 88 preempt
+ standby 188 ipv6 FE80::88:1
+ standby 188 priority 150
+ standby 188 preempt
+ ipv6 address FE80::88:3 link-local
+ ipv6 address 2001:DB8:88::3/64
+ ipv6 ospf 100 area 0
+!
+router ospf 100
+ router-id 3.3.3.2
+ auto-cost reference-bandwidth 10000
+ passive-interface Port-channel2
+ passive-interface Port-channel3
+ network 10.0.0.0 0.0.127.255 area 0
+ network 10.0.240.0 0.0.0.255 area 0
+ network 10.0.255.4 0.0.0.3 area 0
+ network 10.0.255.12 0.0.0.3 area 0
+ network 10.3.3.3 0.0.0.0 area 0
+ network 10.3.3.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+ip access-list standard SSH_SECURITY
+ permit 10.0.70.0 0.0.0.255
+!
+ip access-list extended ACL_ADMIN_IN
+ permit ip 10.0.70.0 0.0.0.255 any
+ deny   ip 10.0.88.0 0.0.0.255 host 192.168.247.199
+ deny   tcp 10.0.60.0 0.0.0.255 host 192.168.247.199 eq www
+ deny   tcp 10.0.60.0 0.0.0.255 host 192.168.247.199 eq 443
+ permit tcp 10.0.0.0 0.0.255.255 host 192.168.247.199 eq www
+ permit tcp 10.0.0.0 0.0.255.255 host 192.168.247.199 eq 443
+ permit tcp 10.0.0.0 0.0.255.255 host 192.168.247.199 eq ftp
+ permit tcp 10.0.0.0 0.0.255.255 host 192.168.247.199 eq ftp-data
+ deny   ip any 192.168.0.0 0.0.255.255
+ permit ip any any
+ip access-list extended ACL_STAFF_OUT
+ permit ip any 10.0.70.0 0.0.0.255
+ permit tcp host 192.168.247.199 eq www 10.0.0.0 0.0.255.255 established
+ permit tcp host 192.168.247.199 eq 443 10.0.0.0 0.0.255.255 established
+ permit tcp any any established
+ permit udp any eq domain any
+ permit ip any any
+!
+ipv6 router ospf 100
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ password 7 02050D4808090C2E425E080A16
+ logging synchronous
+ login
+line aux 0
+line vty 0 4
+ access-class SSH_SECURITY in
+ login
+!
+!
+end

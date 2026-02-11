@@ -1,0 +1,140 @@
+
+!
+! Last configuration change at 13:05:49 UTC Wed Feb 11 2026
+! NVRAM config last updated at 13:05:49 UTC Wed Feb 11 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$HLxu$lo5ZM/o0WfiUMvVihZxjm0
+!
+username Admin password 7 122D0005000A0005287A767B
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name terra.lab
+ip cef
+login block-for 5 attempts 3 within 10
+ipv6 unicast-routing
+ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ no shutdown
+ description OUTSIDE
+ no switchport
+ ip address dhcp
+ ip nat outside
+ duplex auto
+ ipv6 address dhcp
+!
+interface Ethernet0/1
+ no shutdown
+ description TO DISTRI 1
+ no switchport
+ ip address 10.0.255.1 255.255.255.252
+ ip nat inside
+ ip ospf priority 100
+ ip ospf 100 area 0
+ duplex auto
+ ipv6 address FE80::A:1 link-local
+ ipv6 address 2001:DB1:A::1/64
+ ipv6 ospf priority 100
+!
+interface Ethernet0/2
+ no shutdown
+ description TO DISTRI 2
+ no switchport
+ ip address 10.0.255.5 255.255.255.252
+ ip nat inside
+ ip ospf 100 area 0
+ duplex auto
+ ipv6 address FE80::C:1 link-local
+ ipv6 address 2001:DB1:C::1/64
+ ipv6 ospf 100 area 0
+!
+interface Ethernet0/3
+ no shutdown
+!
+router ospf 100
+ router-id 5.5.5.1
+ auto-cost reference-bandwidth 10000
+ passive-interface Ethernet0/0
+ network 10.0.255.0 0.0.0.3 area 0
+ network 10.0.255.4 0.0.0.3 area 0
+ default-information originate always
+!
+ip nat inside source list 10 interface Ethernet0/0 overload
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 192.168.247.2
+ip ssh version 2
+!
+ip access-list standard SSH_SECURITY
+ permit 10.0.70.0 0.0.0.255
+!
+!
+access-list 10 permit 10.0.0.0 0.0.255.255
+ipv6 router ospf 100
+!
+!
+!
+!
+control-plane
+!
+banner motd odt "Unauthorized access is strictly prohibited!"
+Unauthorized access is strictly prohibited!
+!
+line con 0
+ password 7 00071A150754080901314D5D1A
+ logging synchronous
+ login
+line aux 0
+line vty 0 4
+ access-class SSH_SECURITY in
+ exec-timeout 19 0
+ login local
+ transport input ssh
+!
+ntp master 1
+ntp server 192.168.247.130
+!
+end
